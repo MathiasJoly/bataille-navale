@@ -1,4 +1,4 @@
-package ensta;
+package personal.board;
 
 /**
  * 

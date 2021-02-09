@@ -1,5 +1,4 @@
-package ensta;
-import java.util.Arrays;
+package personal.board;
 
 /**
  * @param taille doit être inférieur ou égal à 26 
