@@ -8,11 +8,47 @@ import java.util.Arrays;
 
 public class Board
 {
-	public String name;
-	public char[] navires;
-	public boolean[] frappes;
-	public int size;
+	private String name;
+	private char[] navires;
+	private boolean[] frappes;
+	private int size;
 	
+	public String getName()
+	{
+		return name;
+	}
+	public void setName(String nom)
+	{
+		this.name = nom;
+	}
+
+	public char[] getNavires()
+	{
+		return navires;
+	}
+	public void setNavires(int taille)
+	{
+		this.navires = new char[taille*taille];
+	}
+
+	public boolean[] getFrappes()
+	{
+		return frappes;
+	}
+	public void setFrappes(int taille)
+	{
+		this.frappes = new boolean[taille*taille];
+	}
+
+	public int getSize()
+	{
+		return size;
+	}
+	public void setSize(int taille)
+	{
+		this.size = taille;
+	}
+
 	public Board(String nom, int taille)
 	{
 		this.name = nom;
