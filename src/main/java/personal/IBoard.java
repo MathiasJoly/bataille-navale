@@ -1,19 +1,19 @@
-package ensta;
+package personal;
 public interface IBoard { 
 
     /**
      * Get the size of the grids contained in the Board
      * @return the size of the grids contained in the Board
      */
-    int getSize();
+    public int getSize();
 
     /**
-    * Put the given ship at the given position
-    * @param ship The ship to place on the board
-    * @param x
-    * @param y
-    */
-    void putShip(AbstractShip ship, int x, int y);
+     * Put the given ship at the given position
+     * @param ship The ship to place on the board
+     * @param x
+     * @param y
+     */
+    void putShip(personal.ship.AbstractShip ship, int x, int y);
 
     /**
      * Get if a ship is placed at the given position
@@ -37,5 +37,5 @@ public interface IBoard {
      * @param y
      * @return true if the hit is successful
      */
-    Boolean getHit(int x, int y);
+    boolean getHit(int x, int y);
 }

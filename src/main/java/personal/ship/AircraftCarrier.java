@@ -2,9 +2,9 @@ package personal.ship;
 
 public class AircraftCarrier extends AbstractShip 
 {
-	AircraftCarrier()
+	public AircraftCarrier()
 	{ super('C',"Aircraft-Carrier",5,Orientation.EAST); }
 	
-	AircraftCarrier(Orientation anOrientation)
+	public AircraftCarrier(Orientation anOrientation)
 	{ super('C',"Aircraft-Carrier",5,anOrientation); }
 }

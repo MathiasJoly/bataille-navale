@@ -2,13 +2,11 @@ package personal.ship;
 
 public abstract class AbstractShip
 {
-	// Les attributs :
 	protected char label;
 	protected String nom;
 	protected int taille;
 	protected Orientation orientation;
 	
-	// Les accesseurs :
 	public char getLabel()
 	{
 		return label;
@@ -26,13 +24,11 @@ public abstract class AbstractShip
 		return orientation;
 	}
 
-	// Le mutateur d'orientation
 	public void setOrientation(Orientation anOrientation)
 	{
 		this.orientation = anOrientation;
 	}
 
-	// Le constructeur valué
 	public AbstractShip (char aLabel, String aName, int aSize, Orientation anOrientation)
 	{
 		this.label = aLabel ;

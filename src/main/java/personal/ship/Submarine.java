@@ -2,9 +2,9 @@ package personal.ship;
 
 public class Submarine extends AbstractShip 
 {
-	Submarine()
+	public Submarine()
 	{ super('S',"Submarine",3,Orientation.EAST); }
 	
-	Submarine(Orientation anOrientation)
+	public Submarine(Orientation anOrientation)
 	{ super('S',"Submarine",3,anOrientation); }
 }
