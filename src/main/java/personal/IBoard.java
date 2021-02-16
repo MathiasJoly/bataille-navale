@@ -1,4 +1,6 @@
 package personal;
+import personal.ship.*;
+
 public interface IBoard { 
 
     /**
