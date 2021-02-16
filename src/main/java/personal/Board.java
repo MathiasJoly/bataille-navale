@@ -1,5 +1,6 @@
 package personal;
 import personal.ship.*;
+import personal.exception.*;
 
 /**
  * @param taille doit être inférieur ou égal à 26 
@@ -44,67 +45,77 @@ public class Board implements personal.IBoard
 		return navires.length;
 	}
 
-	public void putShip(AbstractShip aShip, int x, int y)
+	public void putShip(AbstractShip aShip, int x, int y) throws HorsGrille, Superposition
 	{
 		int size = navires[0].length;
 		int ship_size = aShip.getTaille();
 		int i=0;
-		boolean possible;
 		Orientation anOrientation = aShip.getOrientation() ;
 		switch(anOrientation)
 		{
 			case NORTH:
-				possible = x >= 0 && x < size && y - ship_size + 1 >= 0 && y < size ;
-				while(possible && i<ship_size)
-				{ possible = possible && ( navires[x][y-i] == 0 ); i++; };
+				if (y - ship_size + 1 < 0) 
+				{ throw new HorsGrille("Le bateau sort de la grille."); }
+				while(i<ship_size) 
+				{
+					if ( navires[x][y-i] != 0 ) 
+					{ throw new Superposition("Un autre bateau fait obstacle"); };
+					i ++;
+				};
 				i = 0;
-				while(possible && i<ship_size)
+				while(i<ship_size)
 				{ navires[x][y-i] = aShip.getLabel(); i++; };
 				break;
 			case SOUTH:
-				possible = x >= 0 && x < size && y >= 0 && y + ship_size - 1 < size ;
-				while(possible && i<ship_size)
-				{ possible = possible && ( navires[x][y+i] == 0 ); i++; };
+				if (y + ship_size - 1 >= size) 
+				{ throw new HorsGrille("Le bateau sort de la grille."); }
+				while(i<ship_size) 
+				{
+					if ( navires[x][y+i] != 0 ) 
+					{ throw new Superposition("Un autre bateau fait obstacle"); };
+					i ++;
+				};
 				i = 0;
-				while(possible && i<ship_size)
+				while(i<ship_size)
 				{ navires[x][y+i] = aShip.getLabel(); i++; };
 				break;
 			case EAST:
-				possible = x >= 0 && x + ship_size - 1 < size && y >= 0 && y < size ;
-				while(possible && i<ship_size)
-				{ possible = possible && ( navires[x+i][y] == 0 ); i++; };
+				if (x + ship_size - 1 >= size) 
+				{ throw new HorsGrille("Le bateau sort de la grille."); }
+				while(i<ship_size) 
+				{
+					if ( navires[x+i][y] != 0 ) 
+					{ throw new Superposition("Un autre bateau fait obstacle"); };
+					i ++;
+				};
 				i = 0;
-				while(possible && i<ship_size)
+				while(i<ship_size)
 				{ navires[x+i][y] = aShip.getLabel(); i++; };
 				break;
 			case WEST:
-				possible = x - ship_size + 1 >= 0 && x < size && y >= 0 && y < size ;
-				while(possible && i<ship_size)
-				{ possible = possible && ( navires[x-i][y] == 0 ); i++; };
+				if (x - ship_size + 1 < 0) 
+				{ throw new HorsGrille("Le bateau sort de la grille."); }
+				while(i<ship_size) 
+				{
+					if ( navires[x-i][y] != 0 ) 
+					{ throw new Superposition("Un autre bateau fait obstacle"); };
+					i ++;
+				};
 				i = 0;
-				while(possible && i<ship_size)
+				while(i<ship_size)
 				{ navires[x-i][y] = aShip.getLabel(); i++; };
 				break;
 		}
 	}
 
 	public boolean hasShip(int x, int y) 
-	{
-		int size = navires[0].length;
-		return (x >= 0 && x < size && y >= 0 && y < size && navires[x][y] != 0);
-	}
+	{ return (navires[x][y] != 0); }
 
 	public void setHit(boolean hit, int x, int y) 
-	{
-		int size = frappes[0].length;
-		if (hit) frappes[x][y]=true;
-	}
+	{ if (hit) frappes[x][y]=true; }
 
 	public boolean getHit(int x, int y) 
-	{
-		int size = navires[0].length;
-		return (x >= 0 && x < size && y >= 0 && y < size && navires[x][y] != 0);
-	}
+	{ return frappes[x][y]; }
 
 	public Board(String aName, int aSize)
 	{
