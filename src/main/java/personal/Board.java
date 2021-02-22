@@ -2,10 +2,6 @@ package personal;
 import personal.ship.*;
 import personal.exception.*;
 
-/**
- * @param taille doit être inférieur ou égal à 26 
- *
- */
 
 public class Board implements personal.IBoard
 {
@@ -26,6 +22,11 @@ public class Board implements personal.IBoard
 	{
 		return navires;
 	}
+	
+    /**
+     * Creates the navires board/matrix
+     * @param aSize must be inferior or equal to 26
+     */
 	public void setNavires(int aSize)
 	{
 		this.navires = new char[aSize][aSize];
@@ -35,16 +36,31 @@ public class Board implements personal.IBoard
 	{
 		return frappes;
 	}
+	
+    /**
+     * Creates the frappes board/matrix
+     * @param aSize must be inferior or equal to 26
+     */
 	public void setFrappes(int aSize)
 	{
 		this.frappes = new boolean[aSize][aSize];
 	}
 
+    /**
+     * Get the size of the grids contained in the Board
+     * @return the size of the grids contained in the Board
+     */
 	public int getSize()
 	{
 		return navires.length;
 	}
 
+    /**
+     * Put the given ship at the given position
+     * @param aShip The ship to place on the board (name, label, length, orientation)
+     * @param x the absciss
+     * @param y the ordinate
+     */
 	public void putShip(AbstractShip aShip, int x, int y) throws HorsGrille, Superposition
 	{
 		int size = navires[0].length;
@@ -108,12 +124,30 @@ public class Board implements personal.IBoard
 		}
 	}
 
+    /**
+     * Get if a ship is placed at the given position
+     * @param x the absciss
+     * @param y the ordinate
+     * @return true if a ship is located at the given position
+     */
 	public boolean hasShip(int x, int y) 
 	{ return (navires[x][y] != 0); }
 
+    /**
+     * Set the state of the hit at a given position
+     * @param hit true if the hit must be set to successful
+     * @param x the absciss
+     * @param y the ordinate
+     */
 	public void setHit(boolean hit, int x, int y) 
 	{ if (hit) frappes[x][y]=true; }
 
+    /**
+     * Get the state of a hit at the given position
+     * @param x the absciss
+     * @param y the ordinate
+     * @return true if the hit is successful
+     */
 	public boolean getHit(int x, int y) 
 	{ return frappes[x][y]; }
 

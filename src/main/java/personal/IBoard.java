@@ -12,11 +12,11 @@ public interface IBoard {
 
     /**
      * Put the given ship at the given position
-     * @param ship The ship to place on the board
+     * @param aShip The ship to place on the board
      * @param x
      * @param y
      */
-    void putShip(personal.ship.AbstractShip ship, int x, int y) throws HorsGrille, Superposition;
+    void putShip(personal.ship.AbstractShip aShip, int x, int y) throws HorsGrille, Superposition;
 
     /**
      * Get if a ship is placed at the given position
