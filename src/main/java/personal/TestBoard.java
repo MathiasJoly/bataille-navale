@@ -1,6 +1,11 @@
 package personal;
-import personal.ship.*;
-import personal.exception.*;
+import personal.exception.HorsGrille;
+import personal.exception.Superposition;
+import personal.ship.AircraftCarrier;
+import personal.ship.BattleShip;
+import personal.ship.Destroyer;
+import personal.ship.Orientation;
+import personal.ship.Submarine;
 
 /**
  * 
@@ -39,7 +44,7 @@ public class TestBoard
 		catch (Superposition e2) {System.out.println("Un bateau fait obstacle au bateau 4");}
 		finally {};
 
-		boolean x,y,z;
+		boolean x,y;
 		x = board2.hasShip(1,2);
 		y = board2.hasShip(2,2);
 

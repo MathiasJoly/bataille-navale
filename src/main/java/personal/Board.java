@@ -48,7 +48,7 @@ public class Board implements personal.IBoard
 	public void putShip(AbstractShip aShip, int x, int y) throws HorsGrille, Superposition
 	{
 		int size = navires[0].length;
-		int ship_size = aShip.getTaille();
+		int ship_size = aShip.getLength();
 		int i=0;
 		Orientation anOrientation = aShip.getOrientation() ;
 		switch(anOrientation)

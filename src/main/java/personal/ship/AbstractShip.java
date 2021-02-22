@@ -11,11 +11,11 @@ public abstract class AbstractShip
 	{
 		return label;
 	}
-	public String getNom()
+	public String getName()
 	{
 		return nom;
 	}
-	public int getTaille()
+	public int getLength()
 	{
 		return taille;
 	}

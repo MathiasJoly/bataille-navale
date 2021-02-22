@@ -1,6 +1,8 @@
 package ensta;
-import java.io.Serializable;
 import java.util.List;
+
+import personal.Board;
+import personal.ship.AbstractShip;
 
 public class Player {
     /* **

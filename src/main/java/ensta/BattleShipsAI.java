@@ -1,6 +1,10 @@
 package ensta;
 import java.io.Serializable;
-import java.util.*;
+import java.util.Random;
+
+import personal.IBoard;
+import personal.ship.AbstractShip;
+import personal.ship.Orientation;
 
 public class BattleShipsAI implements Serializable {
 
@@ -58,9 +62,9 @@ public class BattleShipsAI implements Serializable {
      */
     public void putShips(AbstractShip ships[]) {
         int x, y;
-        AbstractShip.Orientation o;
+        Orientation o;
         Random rnd = new Random();
-        AbstractShip.Orientation[] orientations = AbstractShip.Orientation.values();
+        Orientation[] orientations = Orientation.values();
 
         for (AbstractShip s : ships) {
             do {
@@ -131,24 +135,24 @@ public class BattleShipsAI implements Serializable {
      */
 
     private boolean canPutShip(AbstractShip ship, int x, int y) {
-        AbstractShip.Orientation o = ship.getOrientation();
+        Orientation o = ship.getOrientation();
         int dx = 0, dy = 0;
-        if (o == AbstractShip.Orientation.EAST) {
+        if (o == Orientation.EAST) {
             if (x + ship.getLength() >= this.size) {
                 return false;
             }
             dx = 1;
-        } else if (o == AbstractShip.Orientation.SOUTH) {
+        } else if (o == Orientation.SOUTH) {
             if (y + ship.getLength() >= this.size) {
                 return false;
             }
             dy = 1;
-        } else if (o == AbstractShip.Orientation.NORTH) {
+        } else if (o == Orientation.NORTH) {
             if (y + 1 - ship.getLength() < 0) {
                 return false;
             }
             dy = -1;
-        } else if (o == AbstractShip.Orientation.WEST) {
+        } else if (o == Orientation.WEST) {
             if (x + 1 - ship.getLength() < 0) {
                 return false;
             }
