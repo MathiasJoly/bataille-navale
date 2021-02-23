@@ -1,8 +1,6 @@
 package personal;
 import java.util.List;
 
-import personal.exception.HorsGrille;
-import personal.exception.Superposition;
 import personal.ship.* ;
 
 public class Player {
@@ -33,7 +31,7 @@ public class Player {
      * @throws Superposition 
      * @throws HorsGrille 
      */
-    public void putShips() throws HorsGrille, Superposition {
+    public void putShips() {
         boolean done = false;
         int i = 0;
 

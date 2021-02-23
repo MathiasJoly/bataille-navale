@@ -1,6 +1,5 @@
 package personal;
 import personal.ship.*;
-import personal.exception.*;
 
 
 public class Board implements personal.IBoard
@@ -61,64 +60,65 @@ public class Board implements personal.IBoard
      * @param x the absciss
      * @param y the ordinate
      */
-	public void putShip(AbstractShip aShip, int x, int y) throws HorsGrille, Superposition
+	public void putShip(AbstractShip aShip, int x, int y)
 	{
 		int size = navires[0].length;
 		int ship_size = aShip.getLength();
 		int i=0;
+		boolean possible = true;
 		Orientation anOrientation = aShip.getOrientation() ;
 		switch(anOrientation)
 		{
 			case WEST:
 				if (x - ship_size + 1 < 0) 
-				{ throw new HorsGrille("Le bateau sort de la grille."); }
-				while(i<ship_size) 
+				{ System.out.println("\nLe bateau sort de la grille\nRecommencez !\n"); possible = false; }
+				while(possible && i<ship_size) 
 				{
 					if ( navires[y][x-i] != 0 ) 
-					{ throw new Superposition("Un autre bateau fait obstacle"); };
+					{ System.out.println("\nUn autre bateau fait obstacle\nRecommencez !\n"); possible = false; };
 					i ++;
 				};
 				i = 0;
-				while(i<ship_size)
+				while(possible && i<ship_size)
 				{ navires[y][x-i] = aShip.getLabel(); i++; };
 				break;
 			case EAST:
 				if (x + ship_size - 1 >= size) 
-				{ throw new HorsGrille("Le bateau sort de la grille."); }
-				while(i<ship_size) 
+				{ System.out.println("\nLe bateau sort de la grille\nRecommencez !\n"); possible = false; }
+				while(possible && i<ship_size) 
 				{
 					if ( navires[y][x+i] != 0 ) 
-					{ throw new Superposition("Un autre bateau fait obstacle"); };
+					{ System.out.println("\nUn autre bateau fait obstacle\nRecommencez !\n"); possible = false; };
 					i ++;
 				};
 				i = 0;
-				while(i<ship_size)
+				while(possible && i<ship_size)
 				{ navires[y][x+i] = aShip.getLabel(); i++; };
 				break;
 			case SOUTH:
 				if (y + ship_size - 1 >= size) 
-				{ throw new HorsGrille("Le bateau sort de la grille."); }
-				while(i<ship_size) 
+				{ System.out.println("\nLe bateau sort de la grille\nRecommencez !\n"); possible = false; }
+				while(possible && i<ship_size) 
 				{
 					if ( navires[y+i][x] != 0 ) 
-					{ throw new Superposition("Un autre bateau fait obstacle"); };
+					{ System.out.println("\nUn autre bateau fait obstacle\nRecommencez !\n"); possible = false; };
 					i ++;
 				};
 				i = 0;
-				while(i<ship_size)
+				while(possible && i<ship_size)
 				{ navires[y+i][x] = aShip.getLabel(); i++; };
 				break;
 			case NORTH:
 				if (y - ship_size + 1 < 0) 
-				{ throw new HorsGrille("Le bateau sort de la grille."); }
-				while(i<ship_size) 
+				{ System.out.println("\nLe bateau sort de la grille\nRecommencez !\n"); possible = false; }
+				while(possible && i<ship_size) 
 				{
 					if ( navires[y-i][x] != 0 ) 
-					{ throw new Superposition("Un autre bateau fait obstacle"); };
+					{ System.out.println("\nUn autre bateau fait obstacle\nRecommencez !\n"); possible = false; };
 					i ++;
 				};
 				i = 0;
-				while(i<ship_size)
+				while(possible && i<ship_size)
 				{ navires[y-i][x] = aShip.getLabel(); i++; };
 				break;
 		}

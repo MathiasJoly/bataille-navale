@@ -1,6 +1,5 @@
 package personal;
-import personal.exception.HorsGrille;
-import personal.exception.Superposition;
+
 import personal.ship.AbstractShip;
 import personal.ship.AircraftCarrier;
 import personal.ship.BattleShip;
@@ -30,25 +29,10 @@ public class TestBoard
 		Submarine navire3 = new Submarine(Orientation.WEST);
 		AircraftCarrier navire4 = new AircraftCarrier();
 
-		try { board2.putShip(navire1,0,0); }
-		catch (HorsGrille e1) {System.out.println("Le bateau 1 sort de la grille");}
-		catch (Superposition e2) {System.out.println("Un bateau fait obstacle au bateau 1");}
-		finally {};
-
-		try { board2.putShip(navire2,1,1); }
-		catch (HorsGrille e1) {System.out.println("Le bateau 2 sort de la grille");}
-		catch (Superposition e2) {System.out.println("Un bateau fait obstacle au bateau 2");}
-		finally {};
-
-		try { board2.putShip(navire3,2,2); }
-		catch (HorsGrille e1) {System.out.println("Le bateau 3 sort de la grille");}
-		catch (Superposition e2) {System.out.println("Un bateau fait obstacle au bateau 3");}
-		finally {};
-
-		try { board2.putShip(navire4,3,3); }
-		catch (HorsGrille e1) {System.out.println("Le bateau 4 sort de la grille");}
-		catch (Superposition e2) {System.out.println("Un bateau fait obstacle au bateau 4");}
-		finally {};
+		board2.putShip(navire1,0,0);
+		board2.putShip(navire2,1,1);;
+		board2.putShip(navire3,2,2);
+		board2.putShip(navire4,3,3);
 
 		boolean x,y;
 		x = board2.hasShip(1,2);
@@ -70,10 +54,6 @@ public class TestBoard
 		ships.add(new AircraftCarrier());
 		Board board_opponent = new Board("opponent",10);
 		Player p1 = new Player(board_player,board_opponent,ships);
-		try {
-			p1.putShips();
-		} catch (HorsGrille | Superposition e) {
-			e.printStackTrace();
-		}
+		p1.putShips();
 	}
 }

@@ -1,6 +1,5 @@
 package personal;
 import personal.ship.*;
-import personal.exception.*;
 
 public interface IBoard { 
 
@@ -16,7 +15,7 @@ public interface IBoard {
      * @param x
      * @param y
      */
-    void putShip(personal.ship.AbstractShip aShip, int x, int y) throws HorsGrille, Superposition;
+    void putShip(personal.ship.AbstractShip aShip, int x, int y);
 
     /**
      * Get if a ship is placed at the given position
