@@ -6,6 +6,7 @@ public abstract class AbstractShip
 	protected String nom;
 	protected int taille;
 	protected Orientation orientation;
+	protected int strikeCount;
 	
 	public char getLabel()
 	{
@@ -28,7 +29,35 @@ public abstract class AbstractShip
 	{
 		this.orientation = anOrientation;
 	}
-
+	
+	public int getStrikeCount()
+	{
+		return strikeCount;
+	}
+	
+	public void setStrikeCount(int aStrikeCount)
+	{
+		this.strikeCount = aStrikeCount;
+	}
+	
+	public void addStrikeCount()
+	{
+		this.strikeCount += 1;
+	}
+	
+	public boolean isSunk()
+	{
+		return strikeCount == taille;
+	}
+	
+	public AbstractShip ()
+	{
+		this.label = '.';
+		this.nom = "";
+		this.taille = 0;
+		this.orientation = Orientation.EAST;
+	}
+	
 	public AbstractShip (char aLabel, String aName, int aSize, Orientation anOrientation)
 	{
 		this.label = aLabel ;

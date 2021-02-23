@@ -5,8 +5,8 @@ import personal.ship.*;
 public class Board implements personal.IBoard
 {
 	private String name;
-	private char[][] navires;
-	private boolean[][] frappes;
+	private ShipState[][] navires;
+	private Boolean[][] frappes;
 	
 	public String getName()
 	{
@@ -17,7 +17,7 @@ public class Board implements personal.IBoard
 		this.name = aName;
 	}
 
-	public char[][] getNavires()
+	public ShipState[][] getNavires()
 	{
 		return navires;
 	}
@@ -28,10 +28,10 @@ public class Board implements personal.IBoard
      */
 	public void setNavires(int aSize)
 	{
-		this.navires = new char[aSize][aSize];
+		this.navires = new ShipState[aSize][aSize];
 	}
 
-	public boolean[][] getFrappes()
+	public Boolean[][] getFrappes()
 	{
 		return frappes;
 	}
@@ -42,7 +42,7 @@ public class Board implements personal.IBoard
      */
 	public void setFrappes(int aSize)
 	{
-		this.frappes = new boolean[aSize][aSize];
+		this.frappes = new Boolean[aSize][aSize];
 	}
 
     /**
@@ -75,7 +75,8 @@ public class Board implements personal.IBoard
 				{ System.out.println("\nLe bateau sort de la grille\n"); possible = false; }
 				while(possible && i<ship_size) 
 				{
-					if ( navires[y][x-i] != 0 ) 
+					
+					if ( navires[y][x-i].getShip() == null ) 
 					{ System.out.println("\nUn autre bateau fait obstacle\n"); possible = false; };
 					i ++;
 				};
@@ -84,7 +85,10 @@ public class Board implements personal.IBoard
 				{
 						i = 0;
 						while(possible && i<ship_size)
-						{ navires[y][x-i] = aShip.getLabel(); i++; };
+						{ 
+							navires[y][x-i] = new ShipState(aShip); 
+							i++; 
+						};
 				};
 				break;
 			case EAST:
@@ -92,7 +96,7 @@ public class Board implements personal.IBoard
 				{ System.out.println("\nLe bateau sort de la grille\n"); possible = false; }
 				while(possible && i<ship_size) 
 				{
-					if ( navires[y][x+i] != 0 ) 
+					if ( navires[y][x+i].getShip() != null ) 
 					{ System.out.println("\nUn autre bateau fait obstacle\n"); possible = false; };
 					i ++;
 				};
@@ -101,7 +105,7 @@ public class Board implements personal.IBoard
 				{
 					i = 0;
 					while(possible && i<ship_size)
-					{ navires[y][x+i] = aShip.getLabel(); i++; };
+					{ navires[y][x+i] = new ShipState(aShip); i++; };
 				};
 				break;
 			case SOUTH:
@@ -109,7 +113,7 @@ public class Board implements personal.IBoard
 				{ System.out.println("\nLe bateau sort de la grille\n"); possible = false; }
 				while(possible && i<ship_size) 
 				{
-					if ( navires[y+i][x] != 0 ) 
+					if ( navires[y+i][x].getShip() != null ) 
 					{ System.out.println("\nUn autre bateau fait obstacle\n"); possible = false; };
 					i ++;
 				};
@@ -118,7 +122,7 @@ public class Board implements personal.IBoard
 				{
 					i = 0;
 					while(possible && i<ship_size)
-					{ navires[y+i][x] = aShip.getLabel(); i++; };
+					{ navires[y+i][x] = new ShipState(aShip); i++; };
 				};
 				break;
 			case NORTH:
@@ -126,7 +130,7 @@ public class Board implements personal.IBoard
 				{ System.out.println("\nLe bateau sort de la grille\nRecommencez !\n"); possible = false; }
 				while(possible && i<ship_size) 
 				{
-					if ( navires[y-i][x] != 0 ) 
+					if ( navires[y-i][x].getShip() != null ) 
 					{ System.out.println("\nUn autre bateau fait obstacle\nRecommencez !\n"); possible = false; };
 					i ++;
 				};
@@ -135,7 +139,7 @@ public class Board implements personal.IBoard
 				{
 					i = 0;
 					while(possible && i<ship_size)
-					{ navires[y-i][x] = aShip.getLabel(); i++; };
+					{ navires[y-i][x] = new ShipState(aShip); i++; };
 				};
 				break;
 		}
@@ -148,7 +152,9 @@ public class Board implements personal.IBoard
      * @return true if a ship is located at the given position
      */
 	public boolean hasShip(int x, int y) 
-	{ return (navires[y][x] != 0); }
+	{ 
+		return (navires[y][x].getShip() != null); 
+	}
 
     /**
      * Set the state of the hit at a given position
@@ -171,8 +177,8 @@ public class Board implements personal.IBoard
 	public Board(String aName, int aSize)
 	{
 		this.name = aName;
-		this.navires = new char[aSize][aSize];
-		this.frappes = new boolean[aSize][aSize];
+		this.navires = new ShipState[aSize][aSize];
+		this.frappes = new Boolean[aSize][aSize];
 	};
 
 	public Board(String aName)
@@ -201,8 +207,9 @@ public class Board implements personal.IBoard
 			for (i=0;i<taille;i++)
 			{
 				sb.append(" ");
-				if (this.navires[j][i]==0) sb.append(".");
-				else sb.append(this.navires[j][i]);
+				ShipState s = this.navires[j][i];
+				if (s.getShip()== null) sb.append(".");
+				else sb.append(s.toString());
 			};
 			sb.append("         ");
 			sb.append(j+1);
