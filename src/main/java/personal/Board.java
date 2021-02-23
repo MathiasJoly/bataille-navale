@@ -59,8 +59,9 @@ public class Board implements personal.IBoard
      * @param aShip The ship to place on the board (name, label, length, orientation)
      * @param x the absciss
      * @param y the ordinate
+     * @throws Exception if x and y are not correct coordinates
      */
-	public void putShip(AbstractShip aShip, int x, int y)
+	public void putShip(AbstractShip aShip, int x, int y) throws Exception
 	{
 		int size = navires[0].length;
 		int ship_size = aShip.getLength();
@@ -71,42 +72,54 @@ public class Board implements personal.IBoard
 		{
 			case WEST:
 				if (x - ship_size + 1 < 0) 
-				{ System.out.println("\nLe bateau sort de la grille\nRecommencez !\n"); possible = false; }
+				{ System.out.println("\nLe bateau sort de la grille\n"); possible = false; }
 				while(possible && i<ship_size) 
 				{
 					if ( navires[y][x-i] != 0 ) 
-					{ System.out.println("\nUn autre bateau fait obstacle\nRecommencez !\n"); possible = false; };
+					{ System.out.println("\nUn autre bateau fait obstacle\n"); possible = false; };
 					i ++;
 				};
-				i = 0;
-				while(possible && i<ship_size)
-				{ navires[y][x-i] = aShip.getLabel(); i++; };
+				if(!possible) throw new Exception("Mauvais placement du bateau");
+				else 
+				{
+						i = 0;
+						while(possible && i<ship_size)
+						{ navires[y][x-i] = aShip.getLabel(); i++; };
+				};
 				break;
 			case EAST:
 				if (x + ship_size - 1 >= size) 
-				{ System.out.println("\nLe bateau sort de la grille\nRecommencez !\n"); possible = false; }
+				{ System.out.println("\nLe bateau sort de la grille\n"); possible = false; }
 				while(possible && i<ship_size) 
 				{
 					if ( navires[y][x+i] != 0 ) 
-					{ System.out.println("\nUn autre bateau fait obstacle\nRecommencez !\n"); possible = false; };
+					{ System.out.println("\nUn autre bateau fait obstacle\n"); possible = false; };
 					i ++;
 				};
-				i = 0;
-				while(possible && i<ship_size)
-				{ navires[y][x+i] = aShip.getLabel(); i++; };
+				if(!possible) throw new Exception("Mauvais placement du bateau");
+				else
+				{
+					i = 0;
+					while(possible && i<ship_size)
+					{ navires[y][x+i] = aShip.getLabel(); i++; };
+				};
 				break;
 			case SOUTH:
 				if (y + ship_size - 1 >= size) 
-				{ System.out.println("\nLe bateau sort de la grille\nRecommencez !\n"); possible = false; }
+				{ System.out.println("\nLe bateau sort de la grille\n"); possible = false; }
 				while(possible && i<ship_size) 
 				{
 					if ( navires[y+i][x] != 0 ) 
-					{ System.out.println("\nUn autre bateau fait obstacle\nRecommencez !\n"); possible = false; };
+					{ System.out.println("\nUn autre bateau fait obstacle\n"); possible = false; };
 					i ++;
 				};
-				i = 0;
-				while(possible && i<ship_size)
-				{ navires[y+i][x] = aShip.getLabel(); i++; };
+				if(!possible) throw new Exception("Mauvais placement du bateau");
+				else
+				{
+					i = 0;
+					while(possible && i<ship_size)
+					{ navires[y+i][x] = aShip.getLabel(); i++; };
+				};
 				break;
 			case NORTH:
 				if (y - ship_size + 1 < 0) 
@@ -117,9 +130,13 @@ public class Board implements personal.IBoard
 					{ System.out.println("\nUn autre bateau fait obstacle\nRecommencez !\n"); possible = false; };
 					i ++;
 				};
-				i = 0;
-				while(possible && i<ship_size)
-				{ navires[y-i][x] = aShip.getLabel(); i++; };
+				if(!possible) throw new Exception("Mauvais placement du bateau");
+				else
+				{
+					i = 0;
+					while(possible && i<ship_size)
+					{ navires[y-i][x] = aShip.getLabel(); i++; };
+				};
 				break;
 		}
 	}

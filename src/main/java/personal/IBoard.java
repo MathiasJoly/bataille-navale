@@ -14,8 +14,9 @@ public interface IBoard {
      * @param aShip The ship to place on the board
      * @param x
      * @param y
+     * @throws Exception if x and y are not correct coordinates
      */
-    void putShip(personal.ship.AbstractShip aShip, int x, int y);
+    void putShip(personal.ship.AbstractShip aShip, int x, int y) throws Exception;
 
     /**
      * Get if a ship is placed at the given position

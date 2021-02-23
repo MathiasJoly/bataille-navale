@@ -27,14 +27,14 @@ public class Player {
      */
 
     /**
-     * Read keyboard input to get ships coordinates. Place ships on given coodrinates.
-     * @throws Superposition 
-     * @throws HorsGrille 
+     * Read keyboard input to get ships coordinates. Place ships on given coordinates.
+     * @throws Exception
      */
     public void putShips() {
         boolean done = false;
         int i = 0;
-
+        board.print();
+        
         do {
             AbstractShip s = ships[i];
             String msg = String.format("placer %d : %s(%d)", i + 1, s.getName(), s.getLength());
@@ -58,18 +58,20 @@ public class Player {
             	break;
             }
             // TODO put ship at given position
-            board.putShip(s, res.x, res.y);
+            try 
+            { board.putShip(s, res.x, res.y); } 
+            catch (Exception e) 
+            { System.out.println("Réessayez avec des valeurs correctes !"); }
 
             // TODO when ship placement successful
             boolean success = false;
             success = board.hasShip(res.x, res.y);
             if (success) board.print();
-            else { System.out.println("Mauvaises coordonnées"); i--;};
+            else i--;
             
             ++i;
             done = i == 5;
 
-            board.print();
         } while (!done);
     }
 
