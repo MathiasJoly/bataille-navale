@@ -1,4 +1,4 @@
-package ensta;
+package personal;
 import java.util.NoSuchElementException;
 
 public enum Hit {

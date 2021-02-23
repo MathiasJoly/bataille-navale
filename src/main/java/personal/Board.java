@@ -69,57 +69,57 @@ public class Board implements personal.IBoard
 		Orientation anOrientation = aShip.getOrientation() ;
 		switch(anOrientation)
 		{
-			case NORTH:
-				if (y - ship_size + 1 < 0) 
+			case WEST:
+				if (x - ship_size + 1 < 0) 
 				{ throw new HorsGrille("Le bateau sort de la grille."); }
 				while(i<ship_size) 
 				{
-					if ( navires[x][y-i] != 0 ) 
+					if ( navires[y][x-i] != 0 ) 
 					{ throw new Superposition("Un autre bateau fait obstacle"); };
 					i ++;
 				};
 				i = 0;
 				while(i<ship_size)
-				{ navires[x][y-i] = aShip.getLabel(); i++; };
-				break;
-			case SOUTH:
-				if (y + ship_size - 1 >= size) 
-				{ throw new HorsGrille("Le bateau sort de la grille."); }
-				while(i<ship_size) 
-				{
-					if ( navires[x][y+i] != 0 ) 
-					{ throw new Superposition("Un autre bateau fait obstacle"); };
-					i ++;
-				};
-				i = 0;
-				while(i<ship_size)
-				{ navires[x][y+i] = aShip.getLabel(); i++; };
+				{ navires[y][x-i] = aShip.getLabel(); i++; };
 				break;
 			case EAST:
 				if (x + ship_size - 1 >= size) 
 				{ throw new HorsGrille("Le bateau sort de la grille."); }
 				while(i<ship_size) 
 				{
-					if ( navires[x+i][y] != 0 ) 
+					if ( navires[y][x+i] != 0 ) 
 					{ throw new Superposition("Un autre bateau fait obstacle"); };
 					i ++;
 				};
 				i = 0;
 				while(i<ship_size)
-				{ navires[x+i][y] = aShip.getLabel(); i++; };
+				{ navires[y][x+i] = aShip.getLabel(); i++; };
 				break;
-			case WEST:
-				if (x - ship_size + 1 < 0) 
+			case SOUTH:
+				if (y + ship_size - 1 >= size) 
 				{ throw new HorsGrille("Le bateau sort de la grille."); }
 				while(i<ship_size) 
 				{
-					if ( navires[x-i][y] != 0 ) 
+					if ( navires[y+i][x] != 0 ) 
 					{ throw new Superposition("Un autre bateau fait obstacle"); };
 					i ++;
 				};
 				i = 0;
 				while(i<ship_size)
-				{ navires[x-i][y] = aShip.getLabel(); i++; };
+				{ navires[y+i][x] = aShip.getLabel(); i++; };
+				break;
+			case NORTH:
+				if (y - ship_size + 1 < 0) 
+				{ throw new HorsGrille("Le bateau sort de la grille."); }
+				while(i<ship_size) 
+				{
+					if ( navires[y-i][x] != 0 ) 
+					{ throw new Superposition("Un autre bateau fait obstacle"); };
+					i ++;
+				};
+				i = 0;
+				while(i<ship_size)
+				{ navires[y-i][x] = aShip.getLabel(); i++; };
 				break;
 		}
 	}
@@ -131,7 +131,7 @@ public class Board implements personal.IBoard
      * @return true if a ship is located at the given position
      */
 	public boolean hasShip(int x, int y) 
-	{ return (navires[x][y] != 0); }
+	{ return (navires[y][x] != 0); }
 
     /**
      * Set the state of the hit at a given position
@@ -140,7 +140,7 @@ public class Board implements personal.IBoard
      * @param y the ordinate
      */
 	public void setHit(boolean hit, int x, int y) 
-	{ if (hit) frappes[x][y]=true; }
+	{ if (hit) frappes[y][x]=true; }
 
     /**
      * Get the state of a hit at the given position
@@ -177,22 +177,22 @@ public class Board implements personal.IBoard
 		sb.append("         ");
 		sb.append(letters.substring(0,2+2*taille));
 		sb.append("\n");;
-		for (i = 0; i<taille; i++)
+		for (j = 0; j<taille; j++)
 		{
-			sb.append(i+1);
-			if (i<9) sb.append(" ");
-			for (j=0;j<taille;j++)
+			sb.append(j+1);
+			if (j<9) sb.append(" ");
+			for (i=0;i<taille;i++)
 			{
 				sb.append(" ");
-				if (this.navires[i][j]==0) sb.append(".");
-				else sb.append(this.navires[i][j]);
+				if (this.navires[j][i]==0) sb.append(".");
+				else sb.append(this.navires[j][i]);
 			};
 			sb.append("         ");
-			sb.append(i+1);
-			if (i<9) sb.append(" ");
-			for (j=0;j<taille;j++)
+			sb.append(j+1);
+			if (j<9) sb.append(" ");
+			for (i=0;i<taille;i++)
 			{
-				if (this.frappes[i][j]==false) sb.append(" .");
+				if (this.frappes[j][i]==false) sb.append(" .");
 				else sb.append(" x");
 			};
 			sb.append("\n");

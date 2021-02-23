@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import personal.Board;
+import personal.Hit;
+import personal.Player;
 import personal.ship.AbstractShip;
 import personal.ship.AircraftCarrier;
 import personal.ship.BattleShip;

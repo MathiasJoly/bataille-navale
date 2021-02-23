@@ -2,6 +2,7 @@ package ensta;
 import java.io.Serializable;
 import java.util.Random;
 
+import personal.Hit;
 import personal.IBoard;
 import personal.ship.AbstractShip;
 import personal.ship.Orientation;

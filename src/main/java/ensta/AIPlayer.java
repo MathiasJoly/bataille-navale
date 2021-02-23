@@ -2,6 +2,7 @@ package ensta;
 import java.util.List;
 
 import personal.Board;
+import personal.Player;
 import personal.ship.AbstractShip;
 
 public class AIPlayer extends Player {

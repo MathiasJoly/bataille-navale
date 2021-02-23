@@ -1,11 +1,17 @@
 package personal;
 import personal.exception.HorsGrille;
 import personal.exception.Superposition;
+import personal.ship.AbstractShip;
 import personal.ship.AircraftCarrier;
 import personal.ship.BattleShip;
 import personal.ship.Destroyer;
 import personal.ship.Orientation;
 import personal.ship.Submarine;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import personal.Player;
 
 /**
  * 
@@ -54,5 +60,20 @@ public class TestBoard
 
 		System.out.println("\nil y a-t-il un navire en B3 : " + x);
 		System.out.println("il y a-t-il un navire en C3 : " + y);
+		
+		Board board_player = new Board("player",10);
+		ArrayList<AbstractShip> ships = new ArrayList();
+		ships.add(new Destroyer());
+		ships.add(new Submarine());
+		ships.add(new Submarine());
+		ships.add(new BattleShip());
+		ships.add(new AircraftCarrier());
+		Board board_opponent = new Board("opponent",10);
+		Player p1 = new Player(board_player,board_opponent,ships);
+		try {
+			p1.putShips();
+		} catch (HorsGrille | Superposition e) {
+			e.printStackTrace();
+		}
 	}
 }

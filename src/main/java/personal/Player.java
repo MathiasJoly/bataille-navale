@@ -1,8 +1,9 @@
-package ensta;
+package personal;
 import java.util.List;
 
-import personal.Board;
-import personal.ship.AbstractShip;
+import personal.exception.HorsGrille;
+import personal.exception.Superposition;
+import personal.ship.* ;
 
 public class Player {
     /* **
@@ -29,8 +30,10 @@ public class Player {
 
     /**
      * Read keyboard input to get ships coordinates. Place ships on given coodrinates.
+     * @throws Superposition 
+     * @throws HorsGrille 
      */
-    public void putShips() {
+    public void putShips() throws HorsGrille, Superposition {
         boolean done = false;
         int i = 0;
 
@@ -40,9 +43,31 @@ public class Player {
             System.out.println(msg);
             InputHelper.ShipInput res = InputHelper.readShipInput();
             // TODO set ship orientation
+            String string_o = res.orientation;
+            switch(string_o)
+            {
+            case "n":
+            	s.setOrientation(Orientation.NORTH);
+            	break;
+            case "s":
+            	s.setOrientation(Orientation.SOUTH);
+            	break;
+            case "e":
+            	s.setOrientation(Orientation.EAST);
+            	break;
+            case "w":
+            	s.setOrientation(Orientation.WEST);
+            	break;
+            }
             // TODO put ship at given position
+            board.putShip(s, res.x, res.y);
 
             // TODO when ship placement successful
+            boolean success = false;
+            success = board.hasShip(res.x, res.y);
+            if (success) board.print();
+            else { System.out.println("Mauvaises coordonnées"); i--;};
+            
             ++i;
             done = i == 5;
 
@@ -58,7 +83,7 @@ public class Player {
             System.out.println("où frapper?");
             InputHelper.CoordInput hitInput = InputHelper.readCoordInput();
             // TODO call sendHit on this.opponentBoard
-
+            
             // TODO : Game expects sendHit to return BOTH hit result & hit coords.
             // return hit is obvious. But how to return coords at the same time ?
         } while (!done);
