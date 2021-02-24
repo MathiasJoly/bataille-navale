@@ -194,7 +194,11 @@ public class Board implements personal.IBoard
      * @param y the ordinate
      */
 	public void setHit(boolean hit, int x, int y) 
-	{ if (hit) frappes[y][x]=true; }
+	{ 
+		navires[y][x].addStrike();
+		if (hit) frappes[y][x]= true;
+		else frappes[y][x] = false;
+	}
 
     /**
      * Get the state of a hit at the given position
@@ -203,7 +207,9 @@ public class Board implements personal.IBoard
      * @return true if the hit is successful
      */
 	public boolean getHit(int x, int y) 
-	{ return frappes[x][y]; }
+	{ 
+		return frappes[y][x]; 
+	}
 
 	public Board(String aName, int aSize)
 	{
@@ -256,7 +262,8 @@ public class Board implements personal.IBoard
 			{
 				Boolean bool = this.frappes[j][i];
 				if (bool == null) sb.append(" .");
-				else sb.append(" x");
+				else if (bool == false) sb.append("\u001b[0m X");
+				else if (bool == true) sb.append("\u001b[1;31m X");
 			};
 			sb.append("\n");
 		};
