@@ -56,10 +56,12 @@ public class TestBoard
 		ships.add(new AircraftCarrier());
 		Board board_opponent = new Board("opponent",10);
 		Player p1 = new Player(board_player,board_opponent,ships);
-		try 
-		{ p1.putShips(); }
-		catch (Exception e) 
-		{ e.printStackTrace(); };
-		
+		if (p1 != null)
+		{
+			try 
+			{ p1.putShips(); }
+			catch (Exception e) 
+			{ e.printStackTrace(); };
+		};
 	}
 }

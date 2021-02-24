@@ -75,12 +75,19 @@ public class Board implements personal.IBoard
 				{ System.out.println("\nLe bateau sort de la grille\n"); possible = false; }
 				while(possible && i<ship_size) 
 				{
-					
-					if ( navires[y][x-i].getShip() == null ) 
-					{ System.out.println("\nUn autre bateau fait obstacle\n"); possible = false; };
-					i ++;
+					if (navires[y][x-i] != null)
+					{
+						if ( navires[y][x-i].getShip() != null ) 
+						{ System.out.println("\nUn autre bateau fait obstacle\n"); possible = false; };
+						i ++;
+					}
+					else
+					{
+						possible = false;
+						System.out.println("\nErreur pointeur nul\n");
+					};
 				};
-				if(!possible) throw new Exception("Mauvais placement du bateau");
+				if(!possible) throw new Exception();
 				else 
 				{
 						i = 0;
@@ -96,11 +103,19 @@ public class Board implements personal.IBoard
 				{ System.out.println("\nLe bateau sort de la grille\n"); possible = false; }
 				while(possible && i<ship_size) 
 				{
-					if ( navires[y][x+i].getShip() != null ) 
-					{ System.out.println("\nUn autre bateau fait obstacle\n"); possible = false; };
-					i ++;
+					if ( navires[y][x+i] != null )
+					{
+						if ( navires[y][x+i].getShip() != null ) 
+						{ System.out.println("\nUn autre bateau fait obstacle\n"); possible = false; };
+						i ++;
+					}
+					else
+					{
+						possible = false;
+						System.out.println("\nErreur pointeur nul\n");
+					};
 				};
-				if(!possible) throw new Exception("Mauvais placement du bateau");
+				if(!possible) throw new Exception();
 				else
 				{
 					i = 0;
@@ -113,11 +128,19 @@ public class Board implements personal.IBoard
 				{ System.out.println("\nLe bateau sort de la grille\n"); possible = false; }
 				while(possible && i<ship_size) 
 				{
-					if ( navires[y+i][x].getShip() != null ) 
-					{ System.out.println("\nUn autre bateau fait obstacle\n"); possible = false; };
-					i ++;
+					if ( navires[y+i][x] != null )
+					{
+						if ( navires[y+i][x].getShip() != null ) 
+						{ System.out.println("\nUn autre bateau fait obstacle\n"); possible = false; };
+						i ++;
+					}
+					else
+					{
+						possible = false;
+						System.out.println("\nErreur pointeur nul\n");
+					};
 				};
-				if(!possible) throw new Exception("Mauvais placement du bateau");
+				if(!possible) throw new Exception();
 				else
 				{
 					i = 0;
@@ -130,11 +153,19 @@ public class Board implements personal.IBoard
 				{ System.out.println("\nLe bateau sort de la grille\nRecommencez !\n"); possible = false; }
 				while(possible && i<ship_size) 
 				{
-					if ( navires[y-i][x].getShip() != null ) 
-					{ System.out.println("\nUn autre bateau fait obstacle\nRecommencez !\n"); possible = false; };
-					i ++;
+					if ( navires[y-i][x] != null ) 
+					{
+						if ( navires[y-i][x].getShip() != null ) 
+						{ System.out.println("\nUn autre bateau fait obstacle\n"); possible = false; };
+						i ++;
+					}
+					else
+					{
+						possible = false;
+						System.out.println("\nErreur pointeur nul\n");
+					};
 				};
-				if(!possible) throw new Exception("Mauvais placement du bateau");
+				if(!possible) throw new Exception();
 				else
 				{
 					i = 0;
@@ -178,6 +209,13 @@ public class Board implements personal.IBoard
 	{
 		this.name = aName;
 		this.navires = new ShipState[aSize][aSize];
+		for( int i = 0 ; i < aSize ; i++)
+		{
+			for ( int j = 0 ; j < aSize ; j++)
+			{
+				this.navires[j][i] = new ShipState();
+			}
+		}
 		this.frappes = new Boolean[aSize][aSize];
 	};
 
@@ -207,16 +245,17 @@ public class Board implements personal.IBoard
 			for (i=0;i<taille;i++)
 			{
 				sb.append(" ");
-				ShipState s = this.navires[j][i];
-				if (s.getShip()== null) sb.append(".");
-				else sb.append(s.toString());
+				ShipState ship = this.navires[j][i];
+				if (ship == null) sb.append(".");
+				else sb.append(ship.toString());
 			};
 			sb.append("         ");
 			sb.append(j+1);
 			if (j<9) sb.append(" ");
 			for (i=0;i<taille;i++)
 			{
-				if (this.frappes[j][i]==false) sb.append(" .");
+				Boolean bool = this.frappes[j][i];
+				if (bool == null) sb.append(" .");
 				else sb.append(" x");
 			};
 			sb.append("\n");

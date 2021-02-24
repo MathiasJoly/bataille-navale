@@ -32,9 +32,16 @@ public class ShipState
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder();
-		if (struck) sb.append("\33[m");
-		else sb.append("\30[m");
-		sb.append(this.ship.getLabel());
+		if (struck) sb.append("\u001b[1;31m");
+		else sb.append("\u001b[0m");
+		if(this.ship != null)
+		{
+			sb.append(this.ship.getLabel());
+		}
+		else 
+		{
+			sb.append('.');
+		}
 		return sb.toString();
 	}
 	
