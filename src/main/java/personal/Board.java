@@ -63,7 +63,7 @@ public class Board implements personal.IBoard
      */
 	public void putShip(AbstractShip aShip, int x, int y) throws Exception
 	{
-		int size = navires[0].length;
+		int size = getSize();
 		int ship_size = aShip.getLength();
 		int i=0;
 		boolean possible = true;

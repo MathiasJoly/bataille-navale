@@ -1,13 +1,12 @@
-package ensta;
+package personal;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-import personal.Board;
-import personal.Hit;
-import personal.Player;
+import ensta.ColorUtil;
 import personal.ship.AbstractShip;
 import personal.ship.AircraftCarrier;
 import personal.ship.BattleShip;
@@ -39,12 +38,37 @@ public class Game {
             System.out.println("entre ton nom:");
 
             // TODO use a scanner to read player name
+            String name = "Player 1";
+            try
+            {
+            	Scanner sin = new Scanner(System.in);
+            	name = sin.nextLine();
+            }
+            catch (Exception e)
+            {}
 
             // TODO init boards
             Board b1, b2;
+            b1 = new Board(name,10);
+            b2 = new Board("AI",10);
 
             // TODO init this.player1 & this.player2
-
+    		ArrayList<AbstractShip> ships1 = new ArrayList();
+    		ships1.add(new Destroyer());
+    		ships1.add(new Submarine());
+    		ships1.add(new Submarine());
+    		ships1.add(new BattleShip());
+    		ships1.add(new AircraftCarrier());
+            player1 = new Player(b1,b2,ships1);		
+    		
+    		ArrayList<AbstractShip> ships2 = new ArrayList();
+    		ships2.add(new Destroyer());
+    		ships2.add(new Submarine());
+    		ships2.add(new Submarine());
+    		ships2.add(new BattleShip());
+    		ships2.add(new AircraftCarrier());
+            player2 = new AIPlayer(b2,b1,ships2);
+            
             b1.print();
             // place player ships
             player1.putShips();
@@ -62,12 +86,25 @@ public class Game {
         Hit hit;
 
         // main loop
+        System.out.println(b1.getName());
         b1.print();
         boolean done;
         do {
-            hit = Hit.MISS; // TODO player1 send a hit
+        	hit = Hit.MISS;
+			try
+			{ hit = player1.sendHit(coords);}
+			catch (Exception e)
+			{ 
+				e.printStackTrace();
+				System.out.println("xy ="+coords[0]+coords[1]);
+			}
+			boolean strike = hit != Hit.MISS;
+			
+			/*
             boolean strike = hit != Hit.MISS; // TODO set this hit on his board (b1)
-
+            b1.setHit(strike, coords[0], coords[1]);
+            */
+			
             done = updateScore();
             b1.print();
             System.out.println(makeHitMessage(false /* outgoing hit */, coords, hit));
@@ -77,8 +114,12 @@ public class Game {
             if (!done && !strike) {
                 do {
                     hit = Hit.MISS; // TODO player2 send a hit.
-
+                    try
+        			{ hit = player2.sendHit(coords);} 
+        			catch (Exception e)
+        			{ e.printStackTrace();}
                     strike = hit != Hit.MISS;
+                    
                     if (strike) {
                         b1.print();
                     }
@@ -95,11 +136,11 @@ public class Game {
 
         SAVE_FILE.delete();
         System.out.println(String.format("joueur %d gagne", player1.lose ? 2 : 1));
-        sin.close();
     }
 
 
     private void save() {
+    	/*
         try {
             // TODO bonus 2 : uncomment
             //  if (!SAVE_FILE.exists()) {
@@ -111,10 +152,12 @@ public class Game {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        */
     }
 
     private boolean loadSave() {
         if (SAVE_FILE.exists()) {
+        	/*
             try {
                 // TODO bonus 2 : deserialize players
 
@@ -122,7 +165,9 @@ public class Game {
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
-        }
+            */
+        	return true;
+        };
         return false;
     }
 
@@ -145,24 +190,22 @@ public class Game {
     }
 
     private String makeHitMessage(boolean incoming, int[] coords, Hit hit) {
-        String msg;
-        ColorUtil.Color color = ColorUtil.Color.RESET;
-        switch (hit) {
+        String msg = new String();
+        switch (hit) 
+        {
             case MISS:
                 msg = hit.toString();
                 break;
             case STIKE:
-                msg = hit.toString();
-                color = ColorUtil.Color.RED;
+                msg = "\u001b[1;31m"+hit.toString()+"\u001b[0m";
                 break;
             default:
-                msg = hit.toString() + " coulé";
-                color = ColorUtil.Color.RED;
+                msg = "\u001b[1;31m"+hit.toString()+"\u001b[0m coulé";
         }
         msg = String.format("%s Frappe en %c%d : %s", incoming ? "<=" : "=>",
                 ((char) ('A' + coords[0])),
                 (coords[1] + 1), msg);
-        return ColorUtil.colorize(msg, color);
+        return msg;
     }
 
     private static List<AbstractShip> createDefaultShips() {

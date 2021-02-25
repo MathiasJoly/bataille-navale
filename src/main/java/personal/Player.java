@@ -41,7 +41,8 @@ public class Player {
             System.out.println(msg);
             InputHelper.ShipInput res = InputHelper.readShipInput();
             // TODO set ship orientation
-            String string_o = res.orientation;
+            String string_o = new String();
+            if (res != null) string_o = res.orientation;
             switch(string_o)
             {
             case "n":
@@ -61,7 +62,9 @@ public class Player {
             try 
             { board.putShip(s, res.x, res.y); } 
             catch (Exception e) 
-            { System.out.println("Réessayez avec des valeurs correctes !"); }
+            { 
+            	System.out.println("Réessayez avec des valeurs correctes !");
+            }
 
             // TODO when ship placement successful
             boolean success = false;
@@ -88,17 +91,17 @@ public class Player {
             System.out.println("où frapper?");
             InputHelper.CoordInput hitInput = InputHelper.readCoordInput();
             done = false;
-            if (this.opponentBoard != null) 
+            if (opponentBoard != null) 
             {
             	int x = hitInput.x;
             	int y = hitInput.y;
-            	boolean in = 0 <= x && x < this.opponentBoard.getSize() && 0 <= y && y < this.opponentBoard.getSize();
-            	done = this.opponentBoard.getHit(x,y) == null && in ;
+            	boolean in = 0 <= x && x < opponentBoard.getSize() && 0 <= y && y < opponentBoard.getSize();
+            	done = board.getHit(x,y) == null && in ;
             	if (done)
             	{
                     // TODO call sendHit on this.opponentBoard
-            		hit = this.opponentBoard.sendHit(x,y);
-            		this.board.setHit(hit != Hit.MISS, x, y);
+            		hit = opponentBoard.sendHit(x,y);
+            		board.setHit(hit != Hit.MISS, x, y);
             		if (hit != Hit.MISS && hit != Hit.STIKE)
             		{
             			System.out.println(hit.toString() + " coulé");
@@ -106,12 +109,13 @@ public class Player {
             		
             		// TODO : Game expects sendHit to return BOTH hit result & hit coords.
                     // return hit is obvious. But how to return coords at the same time ?
-            		coords[0] = hitInput.x;
-            		coords[1] = hitInput.y;
+            		coords[0] = x;
+            		coords[1] = y;
             	}
             	else
             	{
             		System.out.println("Réessayez avec des valeurs correctes !");
+            		System.out.println("x y = "+x+" "+y+", bool = "+in);
             	};	
             };
         } while (!done);

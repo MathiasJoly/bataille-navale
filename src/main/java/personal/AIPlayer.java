@@ -1,9 +1,6 @@
-package ensta;
+package personal;
 import java.util.List;
 
-import personal.BattleShipsAI;
-import personal.Board;
-import personal.Player;
 import personal.ship.AbstractShip;
 
 public class AIPlayer extends Player {
@@ -21,4 +18,13 @@ public class AIPlayer extends Player {
     }
 
     // TODO AIPlayer must not inherit "keyboard behavior" from player. Call ai instead.
+    public void putShips() 
+    {
+    	ai.putShips(ships);
+    };
+    
+    public Hit sendHit(int[] coords) 
+    {
+    	return ai.sendHit(coords);
+    };
 }

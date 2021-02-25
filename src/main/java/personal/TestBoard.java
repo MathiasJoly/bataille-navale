@@ -86,7 +86,7 @@ public class TestBoard
 			*/
 			
 			Hit hit = null;
-			int coords[] = {-1,-1};
+			int coords[] = new int[2];
 			
 			try
 			{ hit = p1.sendHit(coords);} //J9
