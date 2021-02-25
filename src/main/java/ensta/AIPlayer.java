@@ -1,6 +1,7 @@
 package ensta;
 import java.util.List;
 
+import personal.BattleShipsAI;
 import personal.Board;
 import personal.Player;
 import personal.ship.AbstractShip;

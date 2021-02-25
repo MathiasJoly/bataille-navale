@@ -40,7 +40,7 @@ public abstract class AbstractShip
 		this.strikeCount = aStrikeCount;
 	}
 	
-	public void addStrikeCount()
+	public void addStrike()
 	{
 		this.strikeCount += 1;
 	}

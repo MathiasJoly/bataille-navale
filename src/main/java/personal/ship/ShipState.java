@@ -20,7 +20,7 @@ public class ShipState
 		if (!struck)
 		{
 			this.struck = true;
-			if(this.ship != null) this.ship.addStrikeCount();
+			if(this.ship != null) this.ship.addStrike();
 		};
 	}
 	

@@ -98,6 +98,7 @@ public class Player {
             	{
                     // TODO call sendHit on this.opponentBoard
             		hit = this.opponentBoard.sendHit(x,y);
+            		this.board.setHit(hit != Hit.MISS, x, y);
             		if (hit != Hit.MISS && hit != Hit.STIKE)
             		{
             			System.out.println(hit.toString() + " coulé");

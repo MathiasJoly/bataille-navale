@@ -1,9 +1,7 @@
-package ensta;
+package personal;
 import java.io.Serializable;
 import java.util.Random;
 
-import personal.Hit;
-import personal.IBoard;
 import personal.ship.AbstractShip;
 import personal.ship.Orientation;
 
@@ -14,6 +12,11 @@ public class BattleShipsAI implements Serializable {
      */
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
      * grid size.
      */
     private final int size;
@@ -70,8 +73,15 @@ public class BattleShipsAI implements Serializable {
         for (AbstractShip s : ships) {
             do {
                 // TODO use Random to pick a random x, y & orientation
+            	x = rnd.nextInt(10);
+            	y = rnd.nextInt(10);
+            	o = orientations[rnd.nextInt(4)];
+            	s.setOrientation(o);
             } while(!canPutShip(s, x, y));
-            board.putShip(s, x, y);
+			try 
+			{ board.putShip(s, x, y); }
+			catch (Exception e) 
+			{ e.printStackTrace(); };
         }
     }
 

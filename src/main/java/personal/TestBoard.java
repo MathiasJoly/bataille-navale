@@ -93,10 +93,6 @@ public class TestBoard
 			catch (Exception e2)
 			{ e2.printStackTrace();}
 			
-			boolean success = false;
-			if (hit != null) success = hit != Hit.MISS;
-			p1.board.setHit(success,coords[0],coords[1]);
-			
 			System.out.println("\nPlayer :\n");
 			p1.board.print();
 			System.out.println("\nOpponent :\n");
@@ -107,10 +103,6 @@ public class TestBoard
 			{ hit = p1.sendHit(coords);} //J8
 			catch (Exception e2)
 			{ e2.printStackTrace();}
-			
-			success = false;
-			if (hit != null) success = hit != Hit.MISS;
-			p1.board.setHit(success,coords[0],coords[1]);
 			
 			System.out.println("\nPlayer :\n");
 			p1.board.print();
@@ -123,10 +115,6 @@ public class TestBoard
 			catch (Exception e2)
 			{ e2.printStackTrace();}
 			
-			success = false;
-			if (hit != null) success = hit != Hit.MISS;
-			p1.board.setHit(success,coords[0],coords[1]);
-			
 			System.out.println("\nPlayer :\n");
 			p1.board.print();
 			System.out.println("\nOpponent :\n");
@@ -137,10 +125,6 @@ public class TestBoard
 			{ hit = p1.sendHit(coords);} //J10
 			catch (Exception e3)
 			{ e3.printStackTrace();}
-			
-			success = false;
-			if (hit != null) success = hit != Hit.MISS;
-			p1.board.setHit(success,coords[0],coords[1]);
 			
 			assert(p1.opponentBoard.getNavires()[9][9].getShip().isSunk() == true);
 			assert(p1.opponentBoard.hasShip(9, 9) == false);
