@@ -74,7 +74,12 @@ public class Player {
 
         } while (!done);
     }
-
+    
+    /**
+     * Sends a hit at the given position
+     * @param coords where coords[0] = x : the absciss chosen, coords[1] = y : the ordinate chosen
+     * @return status for the hit (eg : strike or miss)
+     */
     public Hit sendHit(int[] coords) {
         boolean done;
         Hit hit = null;
@@ -82,10 +87,32 @@ public class Player {
         do {
             System.out.println("où frapper?");
             InputHelper.CoordInput hitInput = InputHelper.readCoordInput();
-            // TODO call sendHit on this.opponentBoard
-            
-            // TODO : Game expects sendHit to return BOTH hit result & hit coords.
-            // return hit is obvious. But how to return coords at the same time ?
+            done = false;
+            if (this.opponentBoard != null) 
+            {
+            	int x = hitInput.x;
+            	int y = hitInput.y;
+            	boolean in = 0 <= x && x < this.opponentBoard.getSize() && 0 <= y && y < this.opponentBoard.getSize();
+            	done = this.opponentBoard.getHit(x,y) == null && in ;
+            	if (done)
+            	{
+                    // TODO call sendHit on this.opponentBoard
+            		hit = this.opponentBoard.sendHit(x,y);
+            		if (hit != Hit.MISS && hit != Hit.STIKE)
+            		{
+            			System.out.println(hit.toString() + " coulé");
+            		}
+            		
+            		// TODO : Game expects sendHit to return BOTH hit result & hit coords.
+                    // return hit is obvious. But how to return coords at the same time ?
+            		coords[0] = hitInput.x;
+            		coords[1] = hitInput.y;
+            	}
+            	else
+            	{
+            		System.out.println("Réessayez avec des valeurs correctes !");
+            	};	
+            };
         } while (!done);
 
         return hit;

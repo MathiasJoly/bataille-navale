@@ -184,7 +184,8 @@ public class Board implements personal.IBoard
      */
 	public boolean hasShip(int x, int y) 
 	{ 
-		return (navires[y][x].getShip() != null); 
+		if (navires[y][x].getShip() == null) return false;
+		else return !navires[y][x].getShip().isSunk();
 	}
 
     /**
@@ -195,7 +196,6 @@ public class Board implements personal.IBoard
      */
 	public void setHit(boolean hit, int x, int y) 
 	{ 
-		navires[y][x].addStrike();
 		if (hit) frappes[y][x]= true;
 		else frappes[y][x] = false;
 	}
@@ -206,9 +206,38 @@ public class Board implements personal.IBoard
      * @param y the ordinate
      * @return true if the hit is successful
      */
-	public boolean getHit(int x, int y) 
+	public Boolean getHit(int x, int y) 
 	{ 
 		return frappes[y][x]; 
+	}
+
+	/**
+	 * Sends a hit at the given position
+	 * @param x
+	 * @param y
+	 * @return status for the hit (eg : strike or miss)
+	 */
+	public Hit sendHit(int x, int y)
+	{
+		Hit res = null;
+		if (this.navires[y][x] != null)
+		{
+			this.navires[y][x].addStrike();
+			if (this.navires[y][x].isStruck()) 
+			{
+				res = Hit.MISS;
+				if (this.navires[y][x].getShip() != null)
+				{
+					res = Hit.STIKE;
+					if (this.navires[y][x].getShip().isSunk())
+					{
+						int length = this.navires[y][x].getShip().getLength();
+						res = Hit.fromInt(length);		
+					}
+				}
+			}
+		}
+		return res;
 	}
 
 	public Board(String aName, int aSize)
@@ -262,8 +291,8 @@ public class Board implements personal.IBoard
 			{
 				Boolean bool = this.frappes[j][i];
 				if (bool == null) sb.append(" .");
-				else if (bool == false) sb.append("\u001b[0m X");
-				else if (bool == true) sb.append("\u001b[1;31m X");
+				else if (bool == false) sb.append(" X");
+				else if (bool == true) sb.append("\u001b[1;31m X\u001b[0m");
 			};
 			sb.append("\n");
 		};
