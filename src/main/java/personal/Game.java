@@ -19,6 +19,7 @@ public class Game {
      * Constante
      */
     public static final File SAVE_FILE = new File("savegame.dat");
+    public boolean multijoueur;
 
     /* ***
      * Attributs
@@ -35,22 +36,49 @@ public class Game {
     public Game init() {
         if (!loadSave()) {
             // init attributes
-            System.out.println("entre ton nom:");
-
-            // TODO use a scanner to read player name
-            String name = "Player 1";
-            try
+        	Scanner sin;
+        	System.out.println("Voulez vous jouer en mode multijoueur ? Repondre par un booléen:");
+        	try
             {
-            	Scanner sin = new Scanner(System.in);
-            	name = sin.nextLine();
+            	sin = new Scanner(System.in);
+            	multijoueur = sin.nextBoolean();
             }
             catch (Exception e)
             {}
+        	
+            System.out.println("entre ton nom:");
+
+            // TODO use a scanner to read player name
+            String name1 = "Player 1";
+            try
+            {
+            	sin = new Scanner(System.in);
+            	name1 = sin.nextLine();
+            }
+            catch (Exception e)
+            {}
+            
+            String name2 = "AI";
+            if (multijoueur)
+            {
+            	System.out.println("entre le nom de ton adversaire");
+
+                // TODO use a scanner to read player name
+                name2 = "Player 2";
+                try
+                {
+                	sin = new Scanner(System.in);
+                	name2 = sin.nextLine();
+                }
+                catch (Exception e)
+                {}
+            }
+            
 
             // TODO init boards
             Board b1, b2;
-            b1 = new Board(name,10);
-            b2 = new Board("AI",10);
+            b1 = new Board(name1,10);
+            b2 = new Board(name2,10);
 
             // TODO init this.player1 & this.player2
     		ArrayList<AbstractShip> ships1 = new ArrayList();
@@ -67,11 +95,22 @@ public class Game {
     		ships2.add(new Submarine());
     		ships2.add(new BattleShip());
     		ships2.add(new AircraftCarrier());
-            player2 = new AIPlayer(b2,b1,ships2);
+            if (multijoueur) player2 = new Player(b2,b1,ships2);
+            else player2 = new AIPlayer(b2,b1,ships2);
             
+            System.out.println(b1.getName());
             b1.print();
             // place player ships
             player1.putShips();
+            
+            if (multijoueur) 
+            {
+            	System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                System.out.println(b2.getName());
+                sleep(1000);
+                sin = new Scanner(System.in);
+                b2.print();
+            }
             player2.putShips();
         }
         return this;
@@ -80,13 +119,28 @@ public class Game {
     /* ***
      * Méthodes
      */
+    private static void sleep(int ms) {
+		try {
+			Thread.sleep(ms);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+    
     public void run() {
         int[] coords = new int[2];
         Board b1 = player1.board;
+        Board b2 = player2.board;
         Hit hit;
 
         // main loop
-        System.out.println(b1.getName());
+        if (multijoueur) 
+        {
+        	System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        	System.out.println(b1.getName());
+            sleep(3000); //changement de joueur
+            sin = new Scanner(System.in);
+        };
         b1.print();
         boolean done;
         do {
@@ -96,7 +150,6 @@ public class Game {
 			catch (Exception e)
 			{ 
 				e.printStackTrace();
-				System.out.println("xy ="+coords[0]+coords[1]);
 			}
 			boolean strike = hit != Hit.MISS;
 			
@@ -111,8 +164,18 @@ public class Game {
 
             save();
 
-            if (!done && !strike) {
-                do {
+            if (!done && !strike) 
+            {
+            	if (multijoueur) 
+                {
+                	System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                	System.out.println(b2.getName());
+                    sleep(3000); //changement de joueur
+                    sin = new Scanner(System.in);
+                    b2.print();
+                };
+                do 
+                {
                     hit = Hit.MISS; // TODO player2 send a hit.
                     try
         			{ hit = player2.sendHit(coords);} 
@@ -120,17 +183,27 @@ public class Game {
         			{ e.printStackTrace();}
                     strike = hit != Hit.MISS;
                     
-                    if (strike) {
+                    if (strike) 
+                    {
                         b1.print();
                     }
                     System.out.println(makeHitMessage(true /* incoming hit */, coords, hit));
                     done = updateScore();
 
-                    if (!done) {
+                    if (!done) 
+                    {
                         save();
                     }
                 } while(strike && !done);
             }
+            if (multijoueur ) 
+            {
+            	System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            	System.out.println(b1.getName());
+            	sleep(3000); //changement de joueur
+                sin = new Scanner(System.in);
+                b1.print();
+            };
 
         } while (!done);
 

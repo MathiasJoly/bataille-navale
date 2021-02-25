@@ -115,7 +115,6 @@ public class Player {
             	else
             	{
             		System.out.println("Réessayez avec des valeurs correctes !");
-            		System.out.println("x y = "+x+" "+y+", bool = "+in);
             	};	
             };
         } while (!done);
