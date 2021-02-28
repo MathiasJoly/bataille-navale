@@ -156,6 +156,7 @@ public class Game {
 			/*
             boolean strike = hit != Hit.MISS; // TODO set this hit on his board (b1)
             b1.setHit(strike, coords[0], coords[1]);
+            // setHit est effectué dans sendHit
             */
 			
             done = updateScore();

@@ -29,7 +29,7 @@ public class TestGame
 		
 		int compteur = 0;
 		Hit hit = null;
-		int coords[] = {-1,-1};
+		int coords[] = new int[2];
 		char x ;
 		int y ;
 		do
