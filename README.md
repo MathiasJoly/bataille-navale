@@ -2,6 +2,8 @@
 Projet Bataille Navale de Mathias Joly
 ==
 Les classes que j'utilise sont stockées dans src/main/java/personal.
+<br/>
+Se placer dans src/main/java puis lancer le jeu avec java personal/Game
 
 Exercice 1
 -
