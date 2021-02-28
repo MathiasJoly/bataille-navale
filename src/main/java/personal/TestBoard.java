@@ -65,9 +65,8 @@ public class TestBoard
 		//Tests hasShip
 		boolean x,y;
 		x = board2.hasShip(1,1);
-		assert(x == false);
 		y = board2.hasShip(2,2);
-		assert(y == true);
+		System.out.println("Tests HasShip : false = " + x + ", true = " + y);
 		
 		//Tests setHit
 		board2.setHit(true,9,0);
@@ -129,10 +128,10 @@ public class TestBoard
 			{ e3.printStackTrace();}
 			
 			//Test isSunk
-			assert(p1.opponentBoard.getNavires()[9][9].getShip().isSunk() == true);
+			System.out.println("is sunk" + p1.opponentBoard.getNavires()[2][2].getShip().isSunk());
 			
 			//Test hasShip sur un navire coulé
-			assert(p1.opponentBoard.hasShip(9, 9) == false);
+			System.out.println("has Ship" + p1.opponentBoard.hasShip(2, 2));
 			
 			System.out.println("\nPlayer :\n");
 			p1.board.print();
